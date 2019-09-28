@@ -1,6 +1,9 @@
 package com.atguigu.gmall.wms.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,7 +19,8 @@ import com.atguigu.gmall.wms.service.WareSkuService;
 
 @Service("wareSkuService")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
-
+    @Autowired
+    WareSkuDao wareSkuDao;
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<WareSkuEntity> page = this.page(
@@ -25,6 +29,12 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         );
 
         return new PageVo(page);
+    }
+
+    @Override
+    public List<WareSkuEntity> getSkuWareInfo(Long skuId) {
+        List<WareSkuEntity> wareSkuEntities = wareSkuDao.selectList(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId));
+        return wareSkuEntities;
     }
 
 }

@@ -21,6 +21,8 @@ import lombok.Data;
 public class ProductAttrValueEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
+
 	/**
 	 * id
 	 */

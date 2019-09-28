@@ -8,3 +8,12 @@ spring:
         group: dev
         namespace: 0336c36b-be23-44e4-b6af-8bee4bce7f55
         file-extension: yml
+
+logging:
+  level:
+    com.atguigu: debug
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto

@@ -5,8 +5,10 @@ import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
+import com.atguigu.core.bean.Query;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.vo.SpuInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,16 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+
+
+
+    @GetMapping
+    public Resp<PageVo> getSpuInfo(QueryCondition queryCondition,@RequestParam("catId") Long catId){
+        PageVo pageVo = spuInfoService.getSpuInfo(queryCondition, catId);
+        return Resp.ok(pageVo);
+    }
+
 
     /**
      * 列表
@@ -59,13 +71,13 @@ public class SpuInfoController {
     }
 
     /**
-     * 保存
+     * 存保
      */
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfoEntity spuInfo){
-		spuInfoService.save(spuInfo);
+    public Resp<SpuInfoVO> save(@RequestBody SpuInfoVO spuInfo){
+        spuInfoService.saveSpuInfoAndSku(spuInfo);
 
         return Resp.ok(null);
     }
