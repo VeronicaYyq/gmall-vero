@@ -1,7 +1,7 @@
 package com.atguigu.gmall.sms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.atguigu.gmall.sms.entity.CategoryBoundsEntity;
+import com.atguigu.gmallsmsinterface.entity.CategoryBoundsEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 

@@ -1,7 +1,7 @@
 package com.atguigu.gmall.pms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -9,11 +9,12 @@ import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SkuImagesEntity;
+import com.atguigu.gmall.pmsInterface.entity.SkuImagesEntity;
 import com.atguigu.gmall.pms.service.SkuImagesService;
 
 
@@ -33,6 +34,12 @@ public class SkuImagesController {
     @Autowired
     private SkuImagesService skuImagesService;
 
+
+    @GetMapping("/{skuId}")
+    public Resp<List<SkuImagesEntity>> skuImagesBySkuId(@PathVariable("skuId") Long skuId){
+        List<SkuImagesEntity> skuImagesEntities=skuImagesService.skuImagesBySkuId(skuId);
+        return Resp.ok(skuImagesEntities);
+    }
     /**
      * 列表
      */

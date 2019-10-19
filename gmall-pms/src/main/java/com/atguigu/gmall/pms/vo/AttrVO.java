@@ -1,6 +1,6 @@
 package com.atguigu.gmall.pms.vo;
 
-import com.atguigu.gmall.pms.entity.AttrEntity;
+import com.atguigu.gmall.pmsInterface.entity.AttrEntity;
 import lombok.Data;
 
 @Data

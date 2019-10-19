@@ -1,0 +1,15 @@
+server:
+  port: 8086
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:9949
+  rabbitmq:
+    host: 192.168.230.230
+    username: GmallVero
+    password: 123456
+    virtual-host: /veronica
+    template:
+      exchange: gmall.item.exchange
+    publisher-confirms: true

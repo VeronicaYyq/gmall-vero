@@ -2,8 +2,8 @@ package com.atguigu.gmall.pms.vo;
 
 import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import com.alibaba.nacos.client.naming.utils.StringUtils;
-import com.atguigu.gmall.pms.entity.AttrEntity;
-import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
+import com.atguigu.gmall.pmsInterface.entity.AttrEntity;
+import com.atguigu.gmall.pmsInterface.entity.ProductAttrValueEntity;
 import lombok.Data;
 
 import java.util.List;

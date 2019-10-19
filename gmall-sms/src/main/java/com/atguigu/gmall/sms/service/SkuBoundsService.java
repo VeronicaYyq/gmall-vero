@@ -1,10 +1,12 @@
 package com.atguigu.gmall.sms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
+import com.atguigu.gmallsmsinterface.entity.SkuBoundsEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
-import vo.SkuSaleVO;
+import com.atguigu.gmallsmsinterface.vo.SkuSaleVO;
+
+import java.util.List;
 
 
 /**
@@ -19,5 +21,8 @@ public interface SkuBoundsService extends IService<SkuBoundsEntity> {
     PageVo queryPage(QueryCondition params);
 
     void saveSkuSaleInfo(SkuSaleVO skuSaleVO);
+
+
+    SkuSaleVO skuSaleVoByskuId(Long skuId);
 }
 

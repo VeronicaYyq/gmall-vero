@@ -1,7 +1,7 @@
 package com.atguigu.gmall.wms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.atguigu.gmall.wms.entity.WareInfoEntity;
+import com.atguigu.gmall.wmsInterface.entity.WareInfoEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 

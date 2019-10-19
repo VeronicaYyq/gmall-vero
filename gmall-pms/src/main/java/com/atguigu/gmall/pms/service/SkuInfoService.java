@@ -1,10 +1,12 @@
 package com.atguigu.gmall.pms.service;
 
+import com.atguigu.core.bean.Resp;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.atguigu.gmall.pms.entity.SkuInfoEntity;
+import com.atguigu.gmall.pmsInterface.entity.SkuInfoEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -20,5 +22,7 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
     PageVo queryPage(QueryCondition params);
 
     List<SkuInfoEntity> queSkuInfoFromSpu(Long spuId);
+
+
 }
 

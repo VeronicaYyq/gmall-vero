@@ -1,7 +1,6 @@
 package com.atguigu.gmall.pms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.BrandEntity;
+import com.atguigu.gmall.pmsInterface.entity.BrandEntity;
 import com.atguigu.gmall.pms.service.BrandService;
 
 
@@ -51,7 +50,7 @@ public class BrandController {
      */
     @ApiOperation("详情查询")
     @GetMapping("/info/{brandId}")
-    @PreAuthorize("hasAuthority('pms:brand:info')")
+//    @PreAuthorize("hasAuthority('pms:brand:info')")
     public Resp<BrandEntity> info(@PathVariable("brandId") Long brandId){
 		BrandEntity brand = brandService.getById(brandId);
 

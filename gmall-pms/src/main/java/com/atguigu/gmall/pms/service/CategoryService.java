@@ -1,7 +1,8 @@
 package com.atguigu.gmall.pms.service;
 
+import com.atguigu.gmall.pmsInterface.vo.IndexVO;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.atguigu.gmall.pms.entity.CategoryEntity;
+import com.atguigu.gmall.pmsInterface.entity.CategoryEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 
@@ -21,5 +22,7 @@ public interface CategoryService extends IService<CategoryEntity> {
 
 
     List<CategoryEntity> queryCategoriesByLevelCid(Integer level, Long parentCid);
+
+    List<IndexVO> querySubLevels(Long pid);
 }
 

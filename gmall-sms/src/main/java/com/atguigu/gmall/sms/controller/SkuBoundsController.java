@@ -1,7 +1,7 @@
 package com.atguigu.gmall.sms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 
 import com.atguigu.core.bean.PageVo;
@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
+import com.atguigu.gmallsmsinterface.entity.SkuBoundsEntity;
 import com.atguigu.gmall.sms.service.SkuBoundsService;
-import vo.SkuSaleVO;
+import com.atguigu.gmallsmsinterface.vo.SkuSaleVO;
 
 
 /**
@@ -32,6 +32,12 @@ import vo.SkuSaleVO;
 public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    @GetMapping("{skuId}")
+    public Resp<SkuSaleVO> skuSaleVoByskuId(@PathVariable("skuId") Long skuId){
+        SkuSaleVO skuSaleVO=skuBoundsService.skuSaleVoByskuId(skuId);
+        return Resp.ok(skuSaleVO);
+    }
 
     @PostMapping("skusale/save")
     public Resp<Object> saveSkuSaleInfo(@RequestBody SkuSaleVO skuSaleVO){

@@ -1,20 +1,17 @@
 package com.atguigu.gmall.pms.service.impl;
 
-import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.pms.dao.AttrAttrgroupRelationDao;
-import com.atguigu.gmall.pms.dao.AttrDao;
-import com.atguigu.gmall.pms.entity.AttrAttrgroupRelationEntity;
-import com.atguigu.gmall.pms.entity.AttrEntity;
-import com.atguigu.gmall.pms.vo.AtrGroupVO;
+import com.atguigu.gmall.pms.dao.*;
+import com.atguigu.gmall.pmsInterface.entity.*;
 import com.atguigu.gmall.pms.vo.AttrgroupVO;
+import com.atguigu.gmall.pmsInterface.vo.AttrValueVO;
+import com.atguigu.gmall.pmsInterface.vo.GroupVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,21 +21,23 @@ import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.Query;
 import com.atguigu.core.bean.QueryCondition;
 
-import com.atguigu.gmall.pms.dao.AttrGroupDao;
-import com.atguigu.gmall.pms.entity.AttrGroupEntity;
 import com.atguigu.gmall.pms.service.AttrGroupService;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
      @Autowired
-     AttrGroupDao attrGroupDao;
+     private AttrGroupDao attrGroupDao;
      @Autowired
-     AttrAttrgroupRelationDao attrgroupRelationDao;
+     private AttrAttrgroupRelationDao attrgroupRelationDao;
      @Autowired
-     AttrDao attrDao;
+     private AttrDao attrDao;
+     @Autowired
+     private ProductAttrValueDao productAttrValueDao;
+
+     @Autowired
+     private SkuSaleAttrValueDao skuSaleAttrValueDao;
 
 
     @Override
@@ -87,6 +86,48 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return attrgroupVO;
     }
 
+
+
+    @Override
+    public List<GroupVO> queryattrwithvalues(Long catId, Long spuId, Long skuId) {
+        // 根据分类的id查询组及组下的规格参数
+        List<AttrgroupVO> attrGroupVOS = this.queryGroupSpecifications(catId);
+
+        return attrGroupVOS.stream().map(attrGroupVO -> {
+            GroupVO groupVO = new GroupVO();
+
+            List<AttrEntity> attrEntities = attrGroupVO.getAttrEntities();
+            if (!CollectionUtils.isEmpty(attrEntities)){
+                //获取attrId
+                List<Long> attrIds = attrEntities.stream().map(attrEntity -> attrEntity.getAttrId()).collect(Collectors.toList());
+
+                // 根据attrId和spuId查询规格属性值
+                List<ProductAttrValueEntity> productAttrValueEntities = this.productAttrValueDao.selectList(new QueryWrapper<ProductAttrValueEntity>().in("attr_id", attrIds).eq("spu_id", spuId));
+                // 根据attrId和skuId查询销售属性值
+                List<SkuSaleAttrValueEntity> skuSaleAttrValueEntities = this.skuSaleAttrValueDao.selectList(new QueryWrapper<SkuSaleAttrValueEntity>().in("attr_id", attrIds).eq("sku_id", skuId));
+
+                List<AttrValueVO> attrValueVOS = new ArrayList<>();
+
+                // 通用的属性值
+                if (!CollectionUtils.isEmpty(productAttrValueEntities)){
+                    for (ProductAttrValueEntity productAttrValueEntity : productAttrValueEntities) {
+                        attrValueVOS.add(new AttrValueVO(productAttrValueEntity.getAttrId(), productAttrValueEntity.getAttrName(), Arrays.asList(productAttrValueEntity.getAttrValue().split(","))));
+                    }
+
+                }
+                // 特殊的属性值
+                if (!CollectionUtils.isEmpty(skuSaleAttrValueEntities)){
+                    for (SkuSaleAttrValueEntity skuSaleAttrValueEntity : skuSaleAttrValueEntities) {
+                        attrValueVOS.add(new AttrValueVO(skuSaleAttrValueEntity.getAttrId(), skuSaleAttrValueEntity.getAttrName(), Arrays.asList(skuSaleAttrValueEntity.getAttrValue())));
+                    }
+                }
+                groupVO.setAttrs(attrValueVOS);
+            }
+            groupVO.setGroupName(attrGroupVO.getAttrGroupName());
+            return groupVO;
+        }).collect(Collectors.toList());
+    }
+
     @Override
     public List<AttrgroupVO> queryGroupSpecifications(Long catId) {
        List<AttrGroupEntity> attrGroupEntities = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catId));
@@ -100,6 +141,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
 
     }
+
       /*  for (AttrGroupEntity attrGroupEntity : attrGroupEntities) {
             BeanUtils.copyProperties(attrGroupEntity,atrGroupVO);
      }

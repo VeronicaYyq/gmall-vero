@@ -11,6 +11,8 @@ spring:
           uri: lb://pms-service
           predicates:
             - Path=/pms/**
+          #filters:
+          #  - Auth
         - id: oms-service
           uri: lb://oms-service
           predicates:
@@ -27,3 +29,37 @@ spring:
           uri: lb://sms-service
           predicates:
             - Path=/sms/**
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment} # 重写前缀，去掉/api
+        - id: index-service
+          uri: lb://index-service
+          predicates:
+            - Path=/api/index/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: item-service
+          uri: lb://item-service
+          predicates:
+            - Path=/api/item/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+gmall:
+  jwt:
+    pubKeyPath: E:\\Sso\\rsa\rsa.pub # 公钥地址
+    cookieName: GMALL_TOKEN

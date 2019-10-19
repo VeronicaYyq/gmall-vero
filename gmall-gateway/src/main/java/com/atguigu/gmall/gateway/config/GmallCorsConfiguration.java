@@ -21,6 +21,7 @@ public class GmallCorsConfiguration {
     public CorsWebFilter corsWebFilter(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("http://localhost:1000");//允许跨域的域名
+        corsConfiguration.addAllowedOrigin("http://localhost:2000");//允许跨域的域名
         corsConfiguration.addAllowedMethod("*");//允许跨域的方法
         corsConfiguration.addAllowedHeader("*");//允许携带任何的头信息
         corsConfiguration.setAllowCredentials(true);//是否允许携带cookie

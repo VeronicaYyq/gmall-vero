@@ -4,7 +4,7 @@
 <mapper namespace="com.atguigu.gmall.sms.dao.SpuFullReductionDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.atguigu.gmall.sms.entity.SpuFullReductionEntity" id="spuFullReductionMap">
+    <resultMap type="com.atguigu.gmallsmsinterface.entity.SpuFullReductionEntity" id="spuFullReductionMap">
         <result property="id" column="id"/>
         <result property="spuId" column="spu_id"/>
         <result property="fullPrice" column="full_price"/>

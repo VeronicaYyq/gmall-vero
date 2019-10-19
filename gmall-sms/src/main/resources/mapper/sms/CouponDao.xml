@@ -4,7 +4,7 @@
 <mapper namespace="com.atguigu.gmall.sms.dao.CouponDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.atguigu.gmall.sms.entity.CouponEntity" id="couponMap">
+    <resultMap type="com.atguigu.gmallsmsinterface.entity.CouponEntity" id="couponMap">
         <result property="id" column="id"/>
         <result property="couponType" column="coupon_type"/>
         <result property="couponImg" column="coupon_img"/>

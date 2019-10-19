@@ -4,7 +4,7 @@
 <mapper namespace="com.atguigu.gmall.sms.dao.CouponSpuCategoryRelationDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.atguigu.gmall.sms.entity.CouponSpuCategoryRelationEntity" id="couponSpuCategoryRelationMap">
+    <resultMap type="com.atguigu.gmallsmsinterface.entity.CouponSpuCategoryRelationEntity" id="couponSpuCategoryRelationMap">
         <result property="id" column="id"/>
         <result property="couponId" column="coupon_id"/>
         <result property="categoryId" column="category_id"/>

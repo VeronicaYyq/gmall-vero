@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+    host: 192.168.230.230
+    username: GmallVero
+    password: 123456
+    virtual-host: /veronica
+    template:
+      exchange: gmall.cart.exchange
+
+

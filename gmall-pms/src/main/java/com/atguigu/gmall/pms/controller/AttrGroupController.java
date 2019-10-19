@@ -2,21 +2,20 @@ package com.atguigu.gmall.pms.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.pms.vo.AtrGroupVO;
 import com.atguigu.gmall.pms.vo.AttrgroupVO;
+import com.atguigu.gmall.pmsInterface.vo.GroupVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.AttrGroupEntity;
+import com.atguigu.gmall.pmsInterface.entity.AttrGroupEntity;
 import com.atguigu.gmall.pms.service.AttrGroupService;
 
 
@@ -34,7 +33,11 @@ import com.atguigu.gmall.pms.service.AttrGroupService;
 public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
-
+    @GetMapping("/attrwithvalues/cat/{catId}/{spuId}/{skuId}")
+    public Resp<List<GroupVO>> attrGroupsBycatId(@PathVariable("catId") Long catId,@PathVariable("spuId") Long spuId,@PathVariable("skuId") Long skuId){
+        List<GroupVO> groupVOS=attrGroupService.queryattrwithvalues(catId,spuId,skuId);
+        return Resp.ok(groupVOS);
+    }
     @GetMapping("/withattrs/cat/{catId}")
     public Resp<List<AttrgroupVO>> queryGroupSpecifications(@PathVariable("catId") Long catId ){
 

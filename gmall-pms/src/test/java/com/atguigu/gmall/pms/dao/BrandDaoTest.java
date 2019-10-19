@@ -1,6 +1,6 @@
 package com.atguigu.gmall.pms.dao;
 
-import com.atguigu.gmall.pms.entity.BrandEntity;
+import com.atguigu.gmall.pmsInterface.entity.BrandEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
